@@ -1,0 +1,17 @@
+<!-- registration/register.html -->
+{% extends 'base.html' %}
+
+{% block start %}
+<h1>Profile Page</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    <div>
+        {% if profile.profile_pic %}
+            <img src="{{ profile.profile_pic.url }}" alt="Profile Picture">
+        {% endif %}
+        
+    </div>
+{% endblock %}

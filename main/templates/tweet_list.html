@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+
+{% block start %}
+<h3>hello {{user.username}}</h3>
+<a href="{% url 'profile' %}">profile</a>
+<a href="{% url 'tweetcreate'%}" class="btn btn-primary mb-4 mt-4 m-4"> create </a>
+
+<div class="main row gap-1 m-5">
+  {% for tweet in tweets %}
+
+  <div class="card m-1" style="width: 22rem;">
+    <img src="{{tweet.photo}}" class="card-img-top " alt="..." />
+    <div class="card-body">
+      <h5 class="card-title"><span> {% if tweet.user.profile.profile_pic %}
+        <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
+    {% else %}
+        <!-- Placeholder image or default profile picture -->
+    {% endif %}</span>&nbsp;{{tweet.user.username}}</h5>
+      <p class="card-text">{{tweet.text}}</p>
+      {% if  tweet.updated_at %}
+      
+      <p class="card-text time">Created: {{ tweet.created_at }}</p>
+        {% endif %}
+{% if tweet.user == user %}
+
+      <a href="{% url 'tweetedit' tweet.id%}" class="btn btn-primary">EDIT</a>
+      <a href="{% url 'tweetdelete' tweet.id%}" class="btn btn-danger mt-1">DELETE</a>
+
+{% endif %}
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+{%endblock%}
