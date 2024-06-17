@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tweet
 from .models import Profile
-
+from django.urls import reverse
 from .forms import UserRegistrationForm , TweetForm,ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -24,6 +24,8 @@ def home(request):
     return render(request, 'home.html')
 def tweetlist(request):
     tweets = Tweet.objects.all().order_by('-created_at')
+    profile_url = reverse('profile')
+
     return render(request, 'tweet_list.html', {'tweets': tweets})
 
 

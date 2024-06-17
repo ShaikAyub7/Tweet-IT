@@ -13,7 +13,34 @@ h4{
     /* width: 80px; */
 }
 .profile_pic{
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    object-fit: cover;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.profile-image{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+.popup{
+    position: absolute;
+    top: 45%;
+    left: 30%;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    color: black;
+    width: 400px;
+    height: 400px;
+}
+.btn-1{
+    background: none;
+    border: none;
 }
