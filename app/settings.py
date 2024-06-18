@@ -22,15 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-# SECRET_KEY = 'django-insecure-zj5)nn@9dbz5gt2w3=b+n5$(545$z7keu*=!r!+%zwj@iftcwy'
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-zj5)nn@9dbz5gt2w3=b+n5$(545$z7keu*=!r!+%zwj@iftcwy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG","False").lower() == "true"
+# DEBUG = os.environ.get("DEBUG","False").lower() == "true"
+DEBUG = True
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(" ")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(" ")
-
-
+ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASES["default"] = dj_database_url.parse("postgres://tweet_it_user:UAdPgzcVgubs38x273pYo9vWHtpXhyb5@dpg-cpopjq2ju9rs738tmc80-a.oregon-postgres.render.com/tweet_it")
+# DATABASES["default"] = dj_database_url.parse("postgres://tweet_it_user:UAdPgzcVgubs38x273pYo9vWHtpXhyb5@dpg-cpopjq2ju9rs738tmc80-a.oregon-postgres.render.com/tweet_it")
 
 # postgres://tweet_it_user:UAdPgzcVgubs38x273pYo9vWHtpXhyb5@dpg-cpopjq2ju9rs738tmc80-a.oregon-postgres.render.com/tweet_it
 # Password validation

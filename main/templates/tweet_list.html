@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block start %}
-<h3>Hello {{ user.username }}</h3>
-<a href="{% url 'profile' %}" class="btn btn-primary m-2">Profile</a>
-<a href="{% url 'tweetcreate' %}" class="btn btn-primary mb-4 mt-4 m-4">Create</a>
+ <!-- <h3>Hello {{ user.username }}</h3> -->
+<!-- <a href="{% url 'profile' %}" class="btn btn-primary m-2">Profile</a> -->
+ <a href="{% url 'tweetcreate' %}" class="btn Create btn-primary mb-4 mt-4 m-4"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Post</a>
 
 <div class="main row gap-1 m-5">
   {% for tweet in tweets %}
@@ -34,7 +34,7 @@
   {% endfor %}
 </div>
 
-<div class="modal-1" >
+<!-- <div class="modal-1" >
   <div class="modals">
     <div class="modal-content">
       <div class="modal-header">
@@ -48,7 +48,7 @@
         <button type="button" class="btn btn-secondary">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <script>

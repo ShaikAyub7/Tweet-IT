@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.exceptions import MultipleObjectsReturned
@@ -22,11 +23,30 @@ def base(request):
 
 def home(request):
     return render(request, 'home.html')
+
 def tweetlist(request):
     tweets = Tweet.objects.all().order_by('-created_at')
-    profile_url = reverse('profile')
+    search_query = request.GET.get('search', '')
+    
+    if search_query:
+        print("Search query:", search_query)  # Debug message
+        search_results = Tweet.objects.filter(
+            Q(text__icontains=search_query) |
+            Q(user__username__icontains=search_query)
+        ).distinct()
 
-    return render(request, 'tweet_list.html', {'tweets': tweets})
+        if search_results.exists():
+            tweets = search_results
+        else:
+            messages.error(request, f"No tweets found matching '{search_query}'.")
+    
+    context = {
+        'tweets': tweets,
+        'search_query': search_query,
+        # 'profile_url': reverse('profile', args=[request.user.id]) if request.user.is_authenticated else '#'
+    }
+
+    return render(request, 'tweet_list.html', context)
 
 
 @login_required

@@ -23,8 +23,9 @@ a{
     color: white;
 }
 .profile-image {
-    max-width: 100%;
-    height: auto;
+    width:200px; 
+     height: 200px; 
+    /* height: auto; */
     border-radius: 50%;
     object-fit: cover;
     /* Optional: to make profile images circular */
@@ -34,7 +35,14 @@ a{
     max-width: 100%;
     height: auto;
 }
-
+.Create{
+    position: fixed;
+    /* padding: 20px; */
+    border-radius: 10%;
+    left: 35%;
+    z-index: 9999;
+    bottom: 0px;
+}
 .popup{
     position: absolute;
     top: 45%;
@@ -51,7 +59,7 @@ a{
     border: none;
 }
 /* Example media queries for better control over image sizes */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .profile-image {
         width: 100%;
     }
@@ -69,4 +77,4 @@ a{
     .card-img-top {
         width: 100%;
     }
-}
+} */
