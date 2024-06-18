@@ -20,6 +20,17 @@
         "src": "/(.*)",
         "dest": "app/wsgi.py"
       }
-    ]
+    ],
+    "build": {
+      "env": {
+        "DJANGO_COLLECTSTATIC": "true"
+      },
+      "commands": {
+        "build": [
+          "python manage.py collectstatic --noinput",
+          "python manage.py migrate --noinput"
+        ]
+      }
+    }
   }
   

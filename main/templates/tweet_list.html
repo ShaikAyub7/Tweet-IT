@@ -8,7 +8,8 @@
 <div class="main row gap-1 m-5">
   {% for tweet in tweets %}
     <div class="card m-1" style="width: 22rem;">
-      <img src="{{ tweet.photo }}" class="card-img-top" alt="Tweet Image" >
+      <img src="{{ tweet.photo }}" class="card-img-top" alt="Tweet Image" style=" height: 100%;
+      object-fit: cover;">
       <div class="card-body">
         <h5 class="card-title">
           <span>
