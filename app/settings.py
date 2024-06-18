@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zj5)nn@9dbz5gt2w3=b+n5$(545$z7keu*=!r!+%zwj@iftcwy'
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+# SECRET_KEY = 'django-insecure-zj5)nn@9dbz5gt2w3=b+n5$(545$z7keu*=!r!+%zwj@iftcwy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG","False").lower() == "true"
 
-ALLOWED_HOSTS = ['127.0.0.1','.vercel.app']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(" ")
 
 
 # Application definition
@@ -80,8 +83,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+DATABASES["default"] = dj_database_url.parse("postgres://tweet_it_user:UAdPgzcVgubs38x273pYo9vWHtpXhyb5@dpg-cpopjq2ju9rs738tmc80-a.oregon-postgres.render.com/tweet_it")
 
-
+# postgres://tweet_it_user:UAdPgzcVgubs38x273pYo9vWHtpXhyb5@dpg-cpopjq2ju9rs738tmc80-a.oregon-postgres.render.com/tweet_it
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
