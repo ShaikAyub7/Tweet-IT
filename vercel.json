@@ -3,18 +3,17 @@
     "builds": [
       {
         "src": "app/wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb" }
+        "use": "@vercel/python"
       },
       {
-        "src": "app/staticfiles/**/*",
+        "src": "app/static/**/*",
         "use": "@vercel/static"
       }
     ],
     "routes": [
       {
         "src": "/static/(.*)",
-        "dest": "/staticfiles/$1"
+        "dest": "/static/$1"
       },
       {
         "src": "/(.*)",
@@ -24,12 +23,6 @@
     "build": {
       "env": {
         "DJANGO_COLLECTSTATIC": "true"
-      },
-      "commands": {
-        "build": [
-          "python manage.py collectstatic --noinput",
-          "python manage.py migrate --noinput"
-        ]
       }
     }
   }

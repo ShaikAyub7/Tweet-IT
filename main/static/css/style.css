@@ -22,13 +22,19 @@ a{
     text-decoration: none;
     color: white;
 }
-.profile-image{
-    width: 100px;
-    height: 100px;
+.profile-image {
+    max-width: 100%;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
-
+    /* Optional: to make profile images circular */
 }
+
+.card-img-top {
+    max-width: 100%;
+    height: auto;
+}
+
 .popup{
     position: absolute;
     top: 45%;
@@ -43,4 +49,24 @@ a{
 .btn-1{
     background: none;
     border: none;
+}
+/* Example media queries for better control over image sizes */
+@media (max-width: 600px) {
+    .profile-image {
+        width: 100%;
+    }
+
+    .card-img-top {
+        width: 100%;
+    }
+}
+
+@media (min-width: 601px) {
+    .profile-image {
+        width: 150px;
+    }
+
+    .card-img-top {
+        width: 100%;
+    }
 }
