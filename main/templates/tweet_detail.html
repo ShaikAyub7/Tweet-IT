@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block start %}
+<div class="container" style="margin-top: 20px;"> 
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card">
+        {% if tweet.photo %}
+          <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ tweet.user.username }}</h5>
+          <p class="card-text">{{ tweet.text }}</p>
+          <p class="card-text"><small class="text-muted">Created at: {{ tweet.created_at }}</small></p>
+          {% if tweet.user == user %}
+          <a href="{% url 'tweetedit' tweet.id %}" class="btn btn-primary"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Edit</a>
+          <a href="{% url 'tweetdelete' tweet.id %}" class="btn btn-danger mt-1"><i class="fa-solid fa-trash" style="color: #ffffff;"></i> Delete</a>
+          {% endif %}
+          <div class="mt-2">
+
+              <a href="/" class="btn btn-primary">Back</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

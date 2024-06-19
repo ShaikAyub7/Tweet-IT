@@ -1,51 +1,78 @@
-<!-- user_tweets.html -->
-
 {% extends 'base.html' %}
 
 {% block start %}
-  <h3>Tweets by You</h3>
-  
-  <div class="main row gap-1 m-5">
-    
-      {% for tweet in tweets %}
-      <div class="card" style="width: 18rem;">
-        {% if tweet.photo %}
-              <img src="{{ tweet.photo.url }}" class="img-fluid" alt="Tweet Image" style=" height: 100%;
-              object-fit: cover;">
-            {% endif %}
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-body">
-          <h5 class="card-title">{{ tweet.user.username }}</h5>
-          <p class="card-text">{{ tweet.text }}.</p>
+<div class="container-fluid" style="max-width: 400px;">
+  <h3 class="text-center mt-3 mb-4">Tweets by {{ request.user.username }}</h3>
 
+  <div class="row justify-content-center gap-1">
+    {% for tweet in tweets %}
+    <div class=" mb-3" >
+      <div class="card">
+        {% if tweet.photo %}
+        <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet Image" style="height: 100%; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">
+            <span>
+              {% if tweet.user.profile.profile_pic %}
+              <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
+              {% endif %}
+            </span>
+            {{ tweet.user.username }}
+          </h5>
+          <p class="card-text">{{ tweet.text }}</p>
+          {% if tweet.updated_at %}
+          <p class="card-text time">Last Updated: {{ tweet.updated_at }}</p>
+          {% else %}
+          <p class="card-text time">Created: {{ tweet.created_at }}</p>
+          {% endif %}
           {% if tweet.user == user %}
           <a href="{% url 'tweetedit' tweet.id %}" class="btn btn-primary"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Edit</a>
           <a href="{% url 'tweetdelete' tweet.id %}" class="btn btn-danger mt-1"><i class="fa-solid fa-trash" style="color: #ffffff;"></i> Delete</a>
-        {% endif %}
-          <!-- <a href="#" class="btn btn-primary">Like</a> -->
+          {% endif %}
         </div>
       </div>
-      {% endfor %}
+    </div>
+    {% endfor %}
   </div>
 
-
+  <!-- Navigation Menu -->
   {% for tweet in tweets %}
 
 <div class="mobile-menu nav navbar-expand-lg  mt-3 mb-2  shadow p-2">
   <li>
     <a href="/"><i class="fa-solid fa-house" style="color: #000000;"></i> Home</a>
-    <!-- <a href="{% url 'user_tweets' username=tweet.user.username %}"><i class="fa-brands fa-twitter" style="color: #000000;"></i> Tweets</a> -->
-
   </li>
   <li>
     <a href="{% url 'tweetcreate' %}" class=""><i class="fa-solid fa-pen" style="color: #000000;"></i> Post</a>
   </li>
-  
   <li>
         <a href="profile/"><i class="fa-regular fa-user" style="color: #000000;"></i> Profile</a>
         </li>
     </div>
     {% endfor %}
 
+  <!-- Toast Notification -->
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100 mt-3">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+        {% if messages %}
+          <ul class="messages message">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
+</div>
 {% endblock %}

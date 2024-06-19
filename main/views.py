@@ -127,13 +127,18 @@ from django.contrib.auth.models import User
 from .models import Tweet
 
 @login_required
-def user_tweets(request,username):
-    user = get_object_or_404(User, username=username)
-
-    # Retrieve tweets belonging to the logged-in user
+def user_tweets(request):
     tweets = Tweet.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'user_tweets.html', {'tweets': tweets})
 
-    # # Render the template with the tweets and user information
-    return render(request, 'user_tweets.html', {'tweets': tweets, 'user': user})
-    # tweets = Tweet.objects.filter(user=request.user).order_by('-created_at')
-    # return render(request, 'user_tweets.html', {'tweets': tweets})
+
+
+
+# views.py
+
+from django.shortcuts import render, get_object_or_404
+from .models import Tweet
+@login_required
+def tweet_detail(request, tweet_id):
+    tweet = get_object_or_404(Tweet, id=tweet_id)
+    return render(request, 'tweet_detail.html', {'tweet': tweet})
