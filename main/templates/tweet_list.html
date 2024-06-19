@@ -3,7 +3,7 @@
 {% block start %}
  <!-- <h3>Hello {{ user.username }}</h3> -->
 <!-- <a href="{% url 'profile' %}" class="btn btn-primary m-2">Profile</a> -->
- <a href="{% url 'tweetcreate' %}" class="btn Create btn-primary mb-4 mt-4 m-4"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Post</a>
+ <!-- <a href="{% url 'tweetcreate' %}" class="btn Create btn-primary mb-4 mt-4 m-4"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Post</a> -->
 
 <div class="main row gap-1 m-5">
   {% for tweet in tweets %}
@@ -76,6 +76,24 @@
     </div>
   </div>
 </div>
+
+{% for tweet in tweets %}
+
+<div class="mobile-menu nav navbar-expand-lg  mt-3 mb-2  shadow p-2">
+  <li>
+    <!-- <a href="#"><i class="fa-solid fa-gear" style="color: #000000;"></i></a> -->
+    <a href="{% url 'user_tweets' username=tweet.user.username %}"><i class="fa-brands fa-twitter" style="color: #000000;"></i> Tweets</a>
+
+  </li>
+  <li>
+    <a href="{% url 'tweetcreate' %}" class=""><i class="fa-solid fa-pen" style="color: #000000;"></i> Post</a>
+  </li>
+  
+  <li>
+        <a href="profile/"><i class="fa-regular fa-user" style="color: #000000;"></i> Profile</a>
+        </li>
+    </div>
+    {% endfor %}
 
 <!-- <div class="modal-1" >
   <div class="modals">

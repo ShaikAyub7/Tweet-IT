@@ -1,0 +1,51 @@
+<!-- user_tweets.html -->
+
+{% extends 'base.html' %}
+
+{% block start %}
+  <h3>Tweets by You</h3>
+  
+  <div class="main row gap-1 m-5">
+    
+      {% for tweet in tweets %}
+      <div class="card" style="width: 18rem;">
+        {% if tweet.photo %}
+              <img src="{{ tweet.photo.url }}" class="img-fluid" alt="Tweet Image" style=" height: 100%;
+              object-fit: cover;">
+            {% endif %}
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title">{{ tweet.user.username }}</h5>
+          <p class="card-text">{{ tweet.text }}.</p>
+
+          {% if tweet.user == user %}
+          <a href="{% url 'tweetedit' tweet.id %}" class="btn btn-primary"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Edit</a>
+          <a href="{% url 'tweetdelete' tweet.id %}" class="btn btn-danger mt-1"><i class="fa-solid fa-trash" style="color: #ffffff;"></i> Delete</a>
+        {% endif %}
+          <!-- <a href="#" class="btn btn-primary">Like</a> -->
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+
+
+  {% for tweet in tweets %}
+
+<div class="mobile-menu nav navbar-expand-lg  mt-3 mb-2  shadow p-2">
+  <li>
+    <a href="/"><i class="fa-solid fa-house" style="color: #000000;"></i> Home</a>
+    <!-- <a href="{% url 'user_tweets' username=tweet.user.username %}"><i class="fa-brands fa-twitter" style="color: #000000;"></i> Tweets</a> -->
+
+  </li>
+  <li>
+    <a href="{% url 'tweetcreate' %}" class=""><i class="fa-solid fa-pen" style="color: #000000;"></i> Post</a>
+  </li>
+  
+  <li>
+        <a href="profile/"><i class="fa-regular fa-user" style="color: #000000;"></i> Profile</a>
+        </li>
+    </div>
+    {% endfor %}
+
+
+{% endblock %}

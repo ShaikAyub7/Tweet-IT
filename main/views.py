@@ -117,3 +117,23 @@ def profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'profile.html', {'form': form})
+
+
+
+# views.py
+
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from .models import Tweet
+
+@login_required
+def user_tweets(request,username):
+    user = get_object_or_404(User, username=username)
+
+    # Retrieve tweets belonging to the logged-in user
+    tweets = Tweet.objects.filter(user=request.user).order_by('-created_at')
+
+    # # Render the template with the tweets and user information
+    return render(request, 'user_tweets.html', {'tweets': tweets, 'user': user})
+    # tweets = Tweet.objects.filter(user=request.user).order_by('-created_at')
+    # return render(request, 'user_tweets.html', {'tweets': tweets})
