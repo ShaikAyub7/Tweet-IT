@@ -15,7 +15,10 @@ from django.core.exceptions import MultipleObjectsReturned
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-
+from .models import Tweet
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Tweet, Reply
+from .forms import ReplyForm
 
 
 def base(request):
@@ -50,7 +53,7 @@ def tweetlist(request):
 
 
 @login_required
-def tweetcreate(request):
+def tweetcreate(request,tweet_id):
     if request.method == 'POST':
         form = TweetForm(request.POST, request.FILES)
         if form.is_valid():
@@ -61,7 +64,30 @@ def tweetcreate(request):
             return redirect('tweetlist')
     else:
         form = TweetForm()
-    return render(request, 'form.html', {'form': form})
+
+    tweet = get_object_or_404(Tweet, id=tweet_id)
+    replies = tweet.replies.all()
+    
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.tweet = tweet
+            reply.user = request.user
+            reply.save()
+            return redirect('tweet_detail', tweet_id=tweet.id)
+    else:
+        form = ReplyForm()
+    
+
+    context = {
+        'tweet': tweet,
+        'replies': replies,
+        'form': form,
+    }
+    return render(request, 'form.html', context)
+
+
 @login_required
 def tweetedit(request, tweet_id):
     tweet = get_object_or_404(Tweet, pk=tweet_id, user=request.user)
@@ -133,12 +159,25 @@ def user_tweets(request):
 
 
 
-
-# views.py
-
-from django.shortcuts import render, get_object_or_404
-from .models import Tweet
 @login_required
 def tweet_detail(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
-    return render(request, 'tweet_detail.html', {'tweet': tweet})
+    replies = tweet.replies.all()
+    
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.tweet = tweet
+            reply.user = request.user
+            reply.save()
+            return redirect('tweet_detail', tweet_id=tweet.id)
+    else:
+        form = ReplyForm()
+    
+    context = {
+        'tweet': tweet,
+        'replies': replies,
+        'form': form,
+    }
+    return render(request, 'tweet_detail.html', context)
