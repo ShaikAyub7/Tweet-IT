@@ -58,6 +58,13 @@ a{
     background: none;
     border: none;
 }
+.message{
+    position: fixed;
+    padding: 20px;
+left: 20%;
+right: 20%;
+    top: 0;
+}
 /* Example media queries for better control over image sizes */
 /* @media (max-width: 600px) {
     .profile-image {

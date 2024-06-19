@@ -26,12 +26,55 @@
           <p class="card-text time">Created: {{ tweet.created_at }}</p>
         {% endif %}
         {% if tweet.user == user %}
-          <a href="{% url 'tweetedit' tweet.id %}" class="btn btn-primary">Edit</a>
-          <a href="{% url 'tweetdelete' tweet.id %}" class="btn btn-danger mt-1">Delete</a>
+          <a href="{% url 'tweetedit' tweet.id %}" class="btn btn-primary"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Edit</a>
+          <a href="{% url 'tweetdelete' tweet.id %}" class="btn btn-danger mt-1"><i class="fa-solid fa-trash" style="color: #ffffff;"></i> Delete</a>
         {% endif %}
       </div>
     </div>
   {% endfor %}
+</div>
+
+<!-- <div>
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %} -->
+</div>
+  <!-- {% if messages %}
+<ul class="messages message">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %} -->
+
+
+
+
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+
+  <!-- Then put toasts within -->
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+      {% if messages %}
+<ul class="messages message">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %} 
+    </div>
+  </div>
 </div>
 
 <!-- <div class="modal-1" >

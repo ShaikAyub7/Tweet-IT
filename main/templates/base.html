@@ -18,7 +18,9 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
+        <div class="container-fluid">{% if tweet.user.profile.profile_pic %}
+          <img src="{{ tweet.user..url }}" alt="Profile Picture" class="profile_pic">
+        {% endif %}
           <a class="navbar-brand" href="#">TWEET-IT</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
