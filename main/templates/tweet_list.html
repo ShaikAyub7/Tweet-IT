@@ -8,7 +8,7 @@
   <div class="row justify-content-center gap-1">
     {% for tweet in tweets %}
     <div class=" mb-3" >
-      <div class="card">
+      <div class="card mb-2">
         <a href="{% url 'tweet_detail' tweet.id %}">
 
         {% if tweet.photo %}
@@ -20,7 +20,7 @@
             <span>
               {% if tweet.user.profile.profile_pic %}
               <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
-              {% endif %}
+                {% endif %}
             </span>
             {{ tweet.user.username }}
           </h5>
@@ -36,13 +36,17 @@
           {% endif %}
         </div>
       </div>
-      {% endfor %}
+          {% endfor %}
 
-      </div>
-      </div>
+
+          
+        
       </div>
       
-      <div class="card-footer">
+      </div>
+      </div>
+     
+      <!-- <div class="card-footer">
         <h5>Replies</h5>
         <ul class="list-group">
           {% for reply in tweet.replies.all %}
@@ -53,7 +57,7 @@
           </li>
           {% endfor %}
         </ul>
-      </div>
+      </div> -->
   <!-- Navigation Menu -->
   {% for tweet in tweets %}
 

@@ -52,41 +52,41 @@ def tweetlist(request):
     return render(request, 'tweet_list.html', context)
 
 
-@login_required
-def tweetcreate(request,tweet_id):
-    if request.method == 'POST':
-        form = TweetForm(request.POST, request.FILES)
-        if form.is_valid():
-            tweet = form.save(commit=False)
-            tweet.user = request.user
-            tweet.photo = form.cleaned_data['photo']
-            tweet.save()
-            return redirect('tweetlist')
-    else:
-        form = TweetForm()
 
+
+def reply_create(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
-    replies = tweet.replies.all()
-    
+
     if request.method == 'POST':
         form = ReplyForm(request.POST)
         if form.is_valid():
             reply = form.save(commit=False)
-            reply.tweet = tweet
             reply.user = request.user
+            reply.tweet = tweet
             reply.save()
-            return redirect('tweet_detail', tweet_id=tweet.id)
+            return redirect('tweetlist')  # Redirect to tweet list or tweet detail view
     else:
         form = ReplyForm()
-    
 
     context = {
         'tweet': tweet,
-        'replies': replies,
         'form': form,
     }
-    return render(request, 'form.html', context)
+    return render(request, 'tweet_list.html', context)
 
+@login_required
+def tweetcreate(request):
+    if request.method == 'POST':
+        form = TweetForm(request.POST)
+        if form.is_valid():
+            tweet = form.save(commit=False)
+            tweet.user = request.user  # Assuming you have a user field in the Tweet model
+            tweet.save()
+            return redirect('tweet_detail', tweet_id=tweet.id)
+    else:
+        form = TweetForm()
+
+    return render(request, 'form.html', {'form': form})
 
 @login_required
 def tweetedit(request, tweet_id):
@@ -98,6 +98,7 @@ def tweetedit(request, tweet_id):
             return redirect('tweetlist')
     else:
         form = TweetForm(instance=tweet)
+
     return render(request, 'form.html', {'form': form})
 
 def tweetdelete(request, tweet_id):
@@ -105,6 +106,9 @@ def tweetdelete(request, tweet_id):
     if request.method == 'POST':
         tweet.delete()
         return redirect('tweetlist')
+    if request.method == 'POST':
+        Reply.delete()
+        return redirect('tweet_detail')
     return render(request, 'delete.html', {'tweet': tweet})
 
 def login_page(request):
@@ -163,7 +167,8 @@ def user_tweets(request):
 def tweet_detail(request, tweet_id):
     tweet = get_object_or_404(Tweet, id=tweet_id)
     replies = tweet.replies.all()
-    
+    # comments = Reply.objects.filter(tweet=tweet)
+
     if request.method == 'POST':
         form = ReplyForm(request.POST)
         if form.is_valid():
@@ -178,6 +183,22 @@ def tweet_detail(request, tweet_id):
     context = {
         'tweet': tweet,
         'replies': replies,
+        # 'comments': comments,
         'form': form,
     }
     return render(request, 'tweet_detail.html', context)
+
+
+def reply_delete(request, tweet_id, comment_id, reply_id):
+    reply = get_object_or_404(Reply, id=reply_id)
+
+    # Check if the logged-in user is the author of the reply
+    if reply.user == request.user:
+        if request.method == 'POST':
+            reply.delete()
+            return redirect('tweet_detail', tweet_id=tweet_id)
+        # Handle GET request to confirm deletion (optional)
+        return render(request, 'delete.html', {'reply': reply})
+    
+    # Handle case where user is not authorized to delete the reply
+    return redirect('tweet_detail', tweet_id=tweet_id)

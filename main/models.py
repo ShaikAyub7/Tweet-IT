@@ -24,7 +24,7 @@ class Profile(models.Model):
 class Reply(models.Model):
     tweet = models.ForeignKey(Tweet, related_name='replies', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField()
+    text = models.CharField(max_length=240)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

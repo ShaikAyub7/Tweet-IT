@@ -9,8 +9,16 @@
  {% csrf_token %}
 
     <button class="btn btn-danger" type="submit">delete</button>
+
     <a href="{% url 'tweetlist' %}" class="btn btn-primary m-4 p-2">Cancle</a>
 
 </form>
+
+
+<div class="reply-actions">
+    {% if reply.user == request.user %}
+        <a href="{% url 'reply_delete' tweet.id comment.id reply.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+</div>
 
 {% endblock %}
