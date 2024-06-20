@@ -59,20 +59,7 @@
         </ul>
       </div> -->
   <!-- Navigation Menu -->
-  {% for tweet in tweets %}
-
-<div class="mobile-menu nav navbar-expand-lg  mt-3 mb-2  shadow p-2">
-  <li>
-    <a href="{% url 'user_tweets' %}"><i class="fa-brands fa-twitter" style="color: #000000;"></i> Tweets</a>
-  </li>
-  <li>
-    <a href="{% url 'tweetcreate' %}" class=""><i class="fa-solid fa-pen" style="color: #000000;"></i> Post</a>
-  </li>
-  <li>
-        <a href="profile/"><i class="fa-regular fa-user" style="color: #000000;"></i> Profile</a>
-        </li>
-    </div>
-    {% endfor %}
+  
 
   <!-- Toast Notification -->
   <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100 mt-3">
@@ -97,4 +84,19 @@
   </div>
 
 </div>
+
+{% for tweet in tweets %}
+
+<div class="mobile-menu nav navbar-expand-lg  mt-3 mb-2  shadow p-2">
+  <li>
+    <a href="{% url 'user_tweets' %}"><i class="fa-brands fa-twitter" style="color: #000000;"></i> Tweets</a>
+  </li>
+  <li>
+    <a href="{% url 'tweetcreate' %}" class=""><i class="fa-solid fa-pen" style="color: #000000;"></i> Post</a>
+  </li>
+  <li>
+        <a href="profile/"><i class="fa-regular fa-user" style="color: #000000;"></i> Profile</a>
+        </li>
+    </div>
+    {% endfor %}
 {% endblock %}
