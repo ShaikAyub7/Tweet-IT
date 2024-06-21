@@ -82,7 +82,7 @@ def tweetcreate(request):
             tweet = form.save(commit=False)
             tweet.user = request.user  # Assuming you have a user field in the Tweet model
             tweet.save()
-            return redirect('tweetlist', tweet_id=tweet.id)
+            return redirect('tweet_detail', tweet_id=tweet.id)
     else:
         form = TweetForm()
 

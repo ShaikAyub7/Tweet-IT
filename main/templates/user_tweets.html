@@ -14,9 +14,10 @@
         <div class="card-body">
           <h5 class="card-title">
             <span>
-              {% if tweet.user.profile.profile_pic %}
-              <img src="{{ tweet.user.profile.profile_pic.url }}" alt="Profile Picture" class="profile_pic">
-              {% endif %}
+              {% if request.user.profile.google_profile_pic %}
+              <img src="{{ request.user.profile.google_profile_pic }}" alt="Profile Picture" class="profile_pic">
+              <!-- Fallback if profile picture URL is not available -->
+          {% endif %}
             </span>
             {{ tweet.user.username }}
           </h5>

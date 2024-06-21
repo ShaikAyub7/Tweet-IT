@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-zj5)nn@9dbz5gt2w3=b+n5$(545$z7keu*=!r!+%zwj@iftcwy
 DEBUG = True
 # ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(" ")
 
-ALLOWED_HOSTS = ['tweet-it-3xqr.vercel.app','127.0.0.1']
+ALLOWED_HOSTS = ['tweet-it-3xqr.vercel.app','127.0.0.1','localhost']
 # Application definition
 
 INSTALLED_APPS = [
@@ -77,24 +77,24 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'DmeEOhBNwsWnNEbuyuNxEARcwkCLxiVa',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '41435',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'DmeEOhBNwsWnNEbuyuNxEARcwkCLxiVa',
+#         'HOST': 'viaduct.proxy.rlwy.net',
+#         'PORT': '41435',
+#     }
+# }
 
 # DATABASES["default"] = dj_database_url.parse("postgres://tweet_it_user:UAdPgzcVgubs38x273pYo9vWHtpXhyb5@dpg-cpopjq2ju9rs738tmc80-a.oregon-postgres.render.com/tweet_it")
 
