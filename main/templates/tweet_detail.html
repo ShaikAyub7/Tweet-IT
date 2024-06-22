@@ -19,12 +19,12 @@
     </div>
     <div class="comment-section mt-4">
         <h5>Post a Reply</h5>
-        <form method="post">
+        <form method="post" class="">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="form-group d-flex">
                 {{ form }}
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Reply</button>
+            <button type="submit" class="btn btn-primary " >Reply</button>
         </form>
         
     </div>
