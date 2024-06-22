@@ -17,9 +17,20 @@
             <a href="/" class="btn btn-primary">Back</a>
         </div>
     </div>
+    <div class="comment-section mt-4">
+        <h5>Post a Reply</h5>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form }}
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Reply</button>
+        </form>
+        
+    </div>
 
     <!-- Existing reply section and comment/reply section -->
-    <div class="container mt-5" style="padding: 5px;">
+    <div class="container mt-2 mb-4" style="padding: 5px;">
         <!-- Your existing reply section -->
         <div class="card" style="padding: 10px;">
             {% for reply in replies %}
@@ -29,14 +40,14 @@
                     <img src="{{ reply.user.profile.profile_pic.url }}" width="30" class="user-img rounded-circle mr-2 profile_pic">
                     <span><small class="font-weight-bold text-primary">&nbsp;&nbsp;{{ reply.user.username }}:</small></span>
                     {% endif %}
-                    <small class="font-weight-bold">{{ reply.text }}</small>
+                    <small class="font-weight-bold"> &nbsp;{{ reply.text }}</small>
                 </div>
                 <small>{{ reply.created_at }}</small>
             </div>
             <div class="action d-flex justify-content-between mt-2 align-items-center">
                 <div class="reply px-4">
-                    <span class="dots"></span>
-                    <span class="dots"></span>
+                    <!-- <span class="dots"></span> -->
+                    <!-- <span class="dots"></span> -->
                     <small>Reply</small>
                     <span class="dots"></span>
                     <small>Translate</small>
@@ -50,20 +61,7 @@
         </div>
 
         <!-- New comment/reply section -->
-        <div class="comment-section mt-4">
-            <h5>Post a Reply</h5>
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form }}
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Reply</button>
-            </form>
-            <div class="comments mt-4">
-                <div class="comment"></div>
-                <div class="comment"></div>
-            </div>
-        </div>
+        
     </div>
 </div>
 
