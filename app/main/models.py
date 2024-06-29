@@ -14,10 +14,13 @@ class Tweet(models.Model):
     photo = models.ImageField(upload_to='photos/',null=True,blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(User, related_name='liked_tweets', blank=True)
 
     def __str__(self) -> str:
         return f'{self.user.username} - {self.text[:10]}'
-    
+        
+    def total_likes(self):
+        return self.likes.count()
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True)

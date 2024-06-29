@@ -77,7 +77,7 @@ def reply_create(request, tweet_id):
 @login_required
 def tweetcreate(request):
     if request.method == 'POST':
-        form = TweetForm(request.POST)
+        form = TweetForm(request.POST, request.FILES)  # Add request.FILES to handle file uploads
         if form.is_valid():
             tweet = form.save(commit=False)
             tweet.user = request.user  # Assuming you have a user field in the Tweet model
@@ -87,7 +87,6 @@ def tweetcreate(request):
         form = TweetForm()
 
     return render(request, 'form.html', {'form': form})
-
 @login_required
 def tweetedit(request, tweet_id):
     tweet = get_object_or_404(Tweet, pk=tweet_id, user=request.user)
@@ -202,3 +201,17 @@ def reply_delete(request, tweet_id, comment_id, reply_id):
     
     # Handle case where user is not authorized to delete the reply
     return redirect('tweet_detail', tweet_id=tweet_id)
+
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Tweet
+
+@login_required
+def like_tweet(request, tweet_id):
+    tweet = get_object_or_404(Tweet, id=tweet_id)
+    if tweet.likes.filter(id=request.user.id).exists():
+        tweet.likes.remove(request.user)
+    else:
+        tweet.likes.add(request.user)
+    return redirect('tweet_detail', tweet_id=tweet.id)
