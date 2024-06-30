@@ -27,10 +27,26 @@
           {% else %}
           <p class="card-text time">Created: {{ tweet.created_at }}</p>
           {% endif %}
-          {% if tweet.user == user %}
-          <a href="{% url 'tweetedit' tweet.id %}" class="btn btn-primary"><i class="fa-solid fa-pen" style="color: #ffffff;"></i> Edit</a>
-          <a href="{% url 'tweetdelete' tweet.id %}" class="btn btn-danger mt-1"><i class="fa-solid fa-trash" style="color: #ffffff;"></i> Delete</a>
-          {% endif %}
+          <div class="contents mt-2">
+            <form action="{% url 'like_tweet' tweet.id %}" method="post" >
+              {% csrf_token %}
+              <button type="submit" style="border: none; background: none;">
+                  {% if user in tweet.likes.all %}
+                  <i class="fa-solid fa-heart" style="color: #f50505; font-size: 25px;"></i>
+                  {% else %}
+                  <i class="fa-regular fa-heart" style="font-size: 20px;"></i>
+                  {% endif %}
+              </button>
+              <p>Likes: {{ tweet.total_likes }}</p>
+          </form>
+          <div>
+  
+            {% if tweet.user == user %}
+            <a href="{% url 'tweetedit' tweet.id %}" class="btn"><i class="fa-solid fa-pen" style="color: #000000;"></i></a>
+            <a href="{% url 'tweetdelete' tweet.id %}" class="btn mt-1"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
+            {% endif %}
+          </div>
+          </div>
         </div>
       </div>
     </div>

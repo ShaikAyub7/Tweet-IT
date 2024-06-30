@@ -16,11 +16,13 @@
             <p class="card-text"><small class="text-muted">Created at: {{ tweet.created_at }}</small></p>
             <form action="{% url 'like_tweet' tweet.id %}" method="post">
                 {% csrf_token %}
-                <button type="submit">
+                <button type="submit" style="background: none; border: none; font-size: 1.2rem;">
                     {% if user in tweet.likes.all %}
-                        Unlike
+                    <i class="fa-solid fa-heart" style="color: #f50505; font-size: 30px;"></i>
+                    
                     {% else %}
-                        Like
+                    <i class="fa-regular fa-heart" style="font-size: 20px;"></i>
+
                     {% endif %}
                 </button>
             </form>

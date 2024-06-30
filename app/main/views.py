@@ -214,4 +214,9 @@ def like_tweet(request, tweet_id):
         tweet.likes.remove(request.user)
     else:
         tweet.likes.add(request.user)
+        redirect('tweetlist')
     return redirect('tweet_detail', tweet_id=tweet.id)
+
+
+def setting(request):
+    return render(request,'setting.html')

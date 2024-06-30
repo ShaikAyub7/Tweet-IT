@@ -530,7 +530,7 @@ body {
   
   border: none;
   box-shadow: 5px 6px 6px 2px #e9ecef;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 
@@ -586,6 +586,58 @@ display: inline-block;
 
   margin-left: 12px;
 }
+/* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #9fccfa;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2em;
+  width: 2em;
+  inset: 0;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.switch input:checked + .slider {
+  background: #0974f1;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #0974f1;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.6em);
+}
 
 .reply small{
 
@@ -600,6 +652,11 @@ display: inline-block;
   cursor: pointer;
 
 }
+.contents{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
   </style>
   <body>
     <nav class="navbar navbar-expand-lg " >
@@ -607,7 +664,7 @@ display: inline-block;
           {% if request.user.profile.profile_pic %}
             <img src="{{ request.user.profile.profile_pic.url }}" class="profile-image" alt="Profile Image" style="height: 40px; width: 40px;">
         {% endif %}
-          <a class="navbar-brand" href="#"> &nbsp;TWEET-IT</a>
+          <a class="navbar-brand " href="#"> &nbsp;TWEET-IT</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
