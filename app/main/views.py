@@ -9,6 +9,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
+from django.utils import timezone
+from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.exceptions import MultipleObjectsReturned
@@ -16,9 +18,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from .models import Tweet
+from datetime import timedelta
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Tweet, Reply
-from .forms import ReplyForm
+from .models import Tweet, Reply,Story
+from .forms import ReplyForm , StoryForm
 
 
 def base(request):
@@ -34,7 +37,7 @@ def tweetlist(request):
     if search_query:
         print("Search query:", search_query)  # Debug message
         search_results = Tweet.objects.filter(
-            Q(text__icontains=search_query) |
+            Q(content__icontains=search_query) |
             Q(user__username__icontains=search_query)
         ).distinct()
 
@@ -42,15 +45,20 @@ def tweetlist(request):
             tweets = search_results
         else:
             messages.error(request, f"No tweets found matching '{search_query}'.")
+
+    # Fetch active stories (created within the last 24 hours)
+    active_stories = Story.objects.filter(
+        created_at__gte=timezone.now() - timedelta(hours=24)
+    ).order_by('-created_at')
     
     context = {
         'tweets': tweets,
         'search_query': search_query,
+        'all_stories': active_stories,
         # 'profile_url': reverse('profile', args=[request.user.id]) if request.user.is_authenticated else '#'
     }
 
     return render(request, 'tweet_list.html', context)
-
 
 
 
@@ -220,3 +228,23 @@ def like_tweet(request, tweet_id):
 
 def setting(request):
     return render(request,'setting.html')
+
+
+@login_required
+def Create_story(request):
+    if request.method == 'POST':
+        form = StoryForm(request.POST, request.FILES)
+        if form.is_valid:
+            story = form.save(commit=False)
+            story.user = request.user
+            story.save()
+            return redirect('tweetlist')
+
+    else:
+        form = StoryForm()
+    return render(request, 'create_story.html', {'form':form})
+
+
+# def stories(request):
+#     all_stories = Story.objects.filter(created_at__gte=timezone.now())
+#     return render(request,'tweetlist',{'stories':all_stories})

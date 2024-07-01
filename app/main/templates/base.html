@@ -638,7 +638,49 @@ display: inline-block;
 .switch input:checked + .slider:before {
   transform: translateX(1.6em);
 }
+.story img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.add-story{}
+.add{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 5px; */
+  border: 0.5px solid gray;
+  padding: 25px;
+  
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* margin-left: 10px; */
+}
+.story p{
+  /* margin-left: 10px; */
+  /* padding-left: 0px; */
+  /* margin-right: 10px; */
 
+
+}
+.stories{
+  width: 90%;
+  padding: 10px;
+  /* padding-left: 10px; */
+  margin-top: 10px;
+  /* margin-left: 20px; */
+  display: flex;
+  overflow-x: hidden;
+  overflow: scroll;
+  gap: 10px;
+  /* justify-content: space-around; */
+  /* border-bottom: 0.5px solid black; */
+}
+.stories::-webkit-scrollbar{
+  display: none;
+}
 .reply small{
 
   color: #b7b4b4;
@@ -716,5 +758,62 @@ display: inline-block;
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <!-- Your custom JavaScript -->
     <script src="{% static 'js/custom.js' %}"></script>
+    <script>
+      function openImage(imageUrl) {
+          var fullPageImage = document.createElement('div');
+          fullPageImage.classList.add('full-page-image-overlay');
+          fullPageImage.innerHTML = '<span class="close-btn" onclick="closeImage()">&times;</span><img src="' + imageUrl + '" class="full-page-image">';
+          document.body.appendChild(fullPageImage);
+          document.body.style.overflow = 'hidden'; // Prevent scrolling of background content
+          
+          // Close the full-page image overlay when clicking outside the image
+          fullPageImage.addEventListener('click', function(event) {
+              if (event.target === fullPageImage) {
+                  closeImage();
+              }
+          });
+      }
+      
+      function closeImage() {
+          var fullPageImage = document.querySelector('.full-page-image-overlay');
+          if (fullPageImage) {
+              fullPageImage.remove();
+              document.body.style.overflow = ''; // Restore scrolling of background content
+          }
+      }
+      </script>
+      
+      <style>
+      /* CSS styles for full-page image overlay */
+      .full-page-image-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.8);
+          z-index: 9999;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+      
+      .full-page-image {
+          max-width: 90%;
+          max-height: 90%;
+          object-fit: contain;
+      }
+      
+      .close-btn {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 30px;
+          color: #fff;
+          cursor: pointer;
+          z-index: 10000;
+      }
+      </style>
+
   </body>
 </html>

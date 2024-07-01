@@ -5,4 +5,4 @@ from .models import *
 
 admin.site.register(Tweet)
 # admin.site.register(Profile)
-# admin.site.register(Reply)
+admin.site.register(Story)

@@ -37,4 +37,10 @@ class Reply(models.Model):
         return self.text
     
 
+class Story(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='stories')
+    created_at = models.DateTimeField(default=timezone.now)
 
+    def is_active(self):
+        return timezone.now() < self.created_at + timedelta(hours=24)

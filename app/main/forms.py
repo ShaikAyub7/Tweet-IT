@@ -34,3 +34,10 @@ class ReplyForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Add a comment...'}),
         }
+
+from .models import Story
+
+class StoryForm(forms.ModelForm):
+    class Meta:
+        model = Story
+        fields = ['image']
